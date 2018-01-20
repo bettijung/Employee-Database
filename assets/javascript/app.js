@@ -39,6 +39,7 @@ $("#add-user").on("click", function(event) {
 event.preventDefault()
 
 
+
 database.push({
     
   
@@ -77,6 +78,10 @@ database.on("child_added", function(snapshot) {
 
 //append user info to display div
 
+
+//clear 
+$("#employee-name, #employee-role, #employee-date, #employee-rate").val("")
+
 });
 
 function createUserDiv(user) {
@@ -91,7 +96,7 @@ var roleRow = $("<td>").text(user.role)
 
 var startDateRow = $("<td>").text(user.startDate)
 
-var monthsWorkedRow = $("<td>").text(user.startDate)
+var monthsWorkedRow = $("<td>").text("placeholder")
 
 var MonthlyRateRow = $("<td>").text(user.monthlyRate)
 
