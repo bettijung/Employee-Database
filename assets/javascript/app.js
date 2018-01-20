@@ -31,18 +31,9 @@ var totalBilled
 
 var database = firebase.database().ref('recentUserList');
 
-/*$( document ).ready( 
-	database.on("child_added", function(snapshot) {
-    // Log everything that's coming out of snapshot
-    console.log(snapshot.val());
-    $(".full-member-list").append(createUserDiv(snapshot.val()));
-}, function(err) {
-    // Handle errors
-    console.log("Error: ", err.code);
-}
-)
 
-	);*/
+
+	
 
 $("#add-user").on("click", function(event) {
 event.preventDefault()
@@ -59,10 +50,7 @@ monthlyRate: $("#employee-rate").val().trim()
 
   });
 
-/*empName = $("#employee-name").val().trim(),
-role = $("#employee-role").val().trim(),
-startDate = $("#employee-date").val().trim(),
-monthlyRate = $("#employee-rate").val().trim();*/
+
 
 //console.log() the snapshot
 database.on("child_added", function(snapshot) {
@@ -88,20 +76,6 @@ database.on("child_added", function(snapshot) {
 //calculate total billed function
 
 //append user info to display div
-
-
-
-
-
-
-/*empName = $("#empPlaceholder").val().trim()
-role = $("#empPlaceholder").val().trim()
-empName = $("#empPlaceholder").val().trim()
-empName = $("#empPlaceholder").val().trim()
-empName = $("#empPlaceholder").val().trim()
-empName = $("#empPlaceholder").val().trim()*/
-
-
 
 });
 
