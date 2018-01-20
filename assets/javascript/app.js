@@ -5,6 +5,8 @@
 
 //	console.log(snapshot.val())						}) 
 //
+//displayMostRecent function
+//createUserDiv function
 
  
 //Setup firebase
@@ -27,29 +29,66 @@ var monthsWorked
 var totalBilled
 
 
-var database = firebase.database().ref()
+var database = firebase.database().ref('recentUserList');
 
+/*$( document ).ready( 
+	database.on("child_added", function(snapshot) {
+    // Log everything that's coming out of snapshot
+    console.log(snapshot.val());
+    $(".full-member-list").append(createUserDiv(snapshot.val()));
+}, function(err) {
+    // Handle errors
+    console.log("Error: ", err.code);
+}
+)
 
-$(".test").on("click", function(event) {
+	);*/
+
+$("#add-user").on("click", function(event) {
 event.preventDefault()
 
-var testNumb = 2
+
 database.push({
     
   
-empName: /*$("#empPlaceholder").val().trim()*/ testNumb
-/*role:*/ /*$("#empPlaceholder").val().trim()*/
-/*startDate:*/ /*$("#empPlaceholder").val().trim()*/
-/*monthlyRate:*/ /*$("#empPlaceholder").val().trim()*/
+empName: $("#employee-name").val().trim(),
+role: $("#employee-role").val().trim(),
+startDate: $("#employee-date").val().trim(),
+monthlyRate: $("#employee-rate").val().trim()
 
 
   });
+
+/*empName = $("#employee-name").val().trim(),
+role = $("#employee-role").val().trim(),
+startDate = $("#employee-date").val().trim(),
+monthlyRate = $("#employee-rate").val().trim();*/
+
+//console.log() the snapshot
+database.on("child_added", function(snapshot) {
+    // Log everything that's coming out of snapshot
+    console.log(snapshot.val());
+    /*$("#full-member-list").append(createUserDiv(snapshot.val()));*/
+}, function(err) {
+    // Handle errors
+    console.log("Error: ", err.code);
+});
+
+database.on("child_added", function(snapshot) {
+    // Log everything that's coming out of snapshot
+    console.log(snapshot.val());
+    $(".full-member-list").append(createUserDiv(snapshot.val()));
+}, function(err) {
+    // Handle errors
+    console.log("Error: ", err.code);
+});
 
 //calculate months worked function
 
 //calculate total billed function
 
 //append user info to display div
+
 
 
 
@@ -64,5 +103,27 @@ empName = $("#empPlaceholder").val().trim()*/
 
 
 
-})
+});
+
+function createUserDiv(user) {
+
+var container = $("tbody").addClass("full-member-list") 
+
+var row = $("<tr>")
+
+var nameRow = $("<td>").text(user.empName)
+
+var roleRow = $("<td>").text(user.role)
+
+var startDateRow = $("<td>").text(user.startDate)
+
+var monthsWorkedRow = $("<td>").text(user.startDate)
+
+var MonthlyRateRow = $("<td>").text(user.monthlyRate)
+
+row.append(nameRow, roleRow, startDateRow, monthsWorkedRow, MonthlyRateRow);
+
+container.append(row);
+
+};
 
