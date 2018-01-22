@@ -51,6 +51,17 @@ monthlyRate: $("#employee-rate").val().trim()
 
   });
 
+var dateEntered = moment($("#employee-date").val().trim()).format("YYYY-MM-DD")
+
+moment(dateEntered).format("X")
+
+var convertedMonthsWorked = moment(dateEntered).diff(moment(), "months") + ' months'
+
+
+console.log(moment(dateEntered).diff(moment(), "months") + ' months')
+
+console.log(moment($("#employee-date").val().trim()).format("YYYY-MM-DD"))
+
 
 
 //console.log() the snapshot
@@ -74,6 +85,8 @@ database.on("child_added", function(snapshot) {
 
 //calculate months worked function
 
+
+
 //calculate total billed function
 
 //append user info to display div
@@ -96,7 +109,7 @@ var roleRow = $("<td>").text(user.role)
 
 var startDateRow = $("<td>").text(user.startDate)
 
-var monthsWorkedRow = $("<td>").text("placeholder")
+var monthsWorkedRow = $("<td>").text(user.convertedMonthsWorked)
 
 var MonthlyRateRow = $("<td>").text(user.monthlyRate)
 
