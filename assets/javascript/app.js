@@ -51,46 +51,42 @@ monthlyRate: $("#employee-rate").val().trim()
 
   });
 
-var dateEntered = moment($("#employee-date").val().trim()).format("YYYY-MM-DD")
+/*
 
-moment(dateEntered).format("X")
+var convertedMonthsWorked = moment(startDate).diff(moment().unix("X"), "months") + ' months'
 
-var convertedMonthsWorked = moment(dateEntered).diff(moment(), "months") + ' months'
+console.log(convertedMonthsWorked)
+
+console.log(moment(dateEntered).diff(moment(), "months") + ' months')*/
 
 
-console.log(moment(dateEntered).diff(moment(), "months") + ' months')
-
-console.log(moment($("#employee-date").val().trim()).format("YYYY-MM-DD"))
 
 
 
 //console.log() the snapshot
+
+
 database.on("child_added", function(snapshot) {
     // Log everything that's coming out of snapshot
+  const newEmp = snapshot.val() 
+console.log(moment(newEmp.startDate))
+ console.log(newEmp.startDate)
+
+ newEmp.monthsWorked = moment().diff(moment(newEmp.startDate, "YYYY/MM/DD"), "months");
+ 
+ console.log(newEmp.monthsWorked)
+ 
+
+
+newEmp.totalBilled = newEmp.monthsWorked * newEmp.monthlyRate
+console.log(newEmp.totalBilled)
+
     console.log(snapshot.val());
-    /*$("#full-member-list").append(createUserDiv(snapshot.val()));*/
+ $(".full-member-list").append(createUserDiv(newEmp))
 }, function(err) {
     // Handle errors
     console.log("Error: ", err.code);
 });
-
-database.on("child_added", function(snapshot) {
-    // Log everything that's coming out of snapshot
-    console.log(snapshot.val());
-    $(".full-member-list").append(createUserDiv(snapshot.val()));
-}, function(err) {
-    // Handle errors
-    console.log("Error: ", err.code);
-});
-
-//calculate months worked function
-
-
-
-//calculate total billed function
-
-//append user info to display div
-
 
 //clear 
 $("#employee-name, #employee-role, #employee-date, #employee-rate").val("")
@@ -109,11 +105,13 @@ var roleRow = $("<td>").text(user.role)
 
 var startDateRow = $("<td>").text(user.startDate)
 
-var monthsWorkedRow = $("<td>").text(user.convertedMonthsWorked)
+var monthsWorkedRow = $("<td>").text(user.monthsWorked)
 
 var MonthlyRateRow = $("<td>").text(user.monthlyRate)
 
-row.append(nameRow, roleRow, startDateRow, monthsWorkedRow, MonthlyRateRow);
+var totalBilledRow = $("<td>").text(user.totalBilled)
+
+row.append(nameRow, roleRow, startDateRow, monthsWorkedRow, MonthlyRateRow, totalBilledRow);
 
 container.append(row);
 
